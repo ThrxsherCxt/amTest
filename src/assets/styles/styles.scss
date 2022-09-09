@@ -27,6 +27,40 @@ body,
     }
 }
 
+.buttonsContainer{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    height: auto;
+    width: 100%;
+    gap: 40px;
+
+    .activeFilter{
+        background-color: #6b63b5;
+    }
+
+    button{
+        font-size:18px;
+        background-color: rgba(0, 0, 0, 0.514);
+        color:white;
+        width:220px;
+        height:60px;
+        border:2px solid #6b63b5;
+        cursor: pointer;
+        transition: 0.3s;
+        
+        &:hover{
+            background-color: #9c97c9;
+        }
+
+        &:active{
+            background-color: #6b63b5;
+        }
+    }
+}
+
 .container {
     display: flex;
     justify-content: center;
@@ -74,23 +108,77 @@ body,
         background: linear-gradient(135deg, rgba(255, 0, 0, 1) 0%, rgba(255, 158, 0, 1) 74%, rgba(255, 231, 0, 1) 100%);
     }
 
+    .Slytherin {
+        background: rgb(9, 96, 2);
+        background: linear-gradient(135deg, rgba(9, 96, 2, 1) 0%, rgba(29, 170, 9, 1) 46%, rgba(121, 255, 0, 1) 100%);
+    }
+
+    .Ravenclaw {
+        background: rgb(0, 168, 255);
+        background: linear-gradient(135deg, rgba(0, 168, 255, 1) 0%, rgba(0, 159, 196, 1) 45%, rgba(0, 241, 255, 1) 100%);
+    }
+
+    .Hufflepuff {
+        background: rgb(179, 169, 30);
+        background: linear-gradient(135deg, rgba(179, 169, 30, 1) 0%, rgba(241, 224, 30, 1) 45%, rgba(254, 238, 0, 1) 100%);
+    }
+
+    .unknownHouse {
+        background: rgb(53, 0, 97);
+        background: linear-gradient(135deg, rgba(53, 0, 97, 1) 0%, rgba(129, 27, 201, 1) 45%, rgba(143, 31, 116, 1) 100%);
+    }
+
+    .notAlive{
+        background-color: #cccccc;
+    }
+
     .info {
         padding: 0 20px;
         text-align: justify;
         display: flex;
         flex-direction: column;
+        width: 300px;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
 
-        .status {
-            width: 200px;
-            margin-top: 20px;
-            color: gray;
-            font-size: 12px;
+        .statusBar{
+            justify-content: flex-end;
+            display: flex;
+            flex-direction: row;
+
+            .status {
+                width: 200px;
+                margin-top: 20px;
+                color: gray;
+                font-size: 12px;
+                margin-right: auto;
+            }
+    
+            .favourite{
+                margin-top:17px;
+                width:25px;
+
+                .icon{
+                    font-size: 25px;
+                    color:gray;
+                }
+
+                .iconBold{
+                    font-size: 25px;
+                    color:black;
+                }
+            }
         }
 
+
         .name {
-            margin: 30px 0;
+            margin: 20px 0 20px 0;
             font-weight: bold;
-            font-size: 2vmin;
+            font-size: 1.7em;
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
         }
 
         .birthday,
@@ -98,7 +186,8 @@ body,
         .eyeColour,
         .hairColour {
             margin: 4px 0;
-            color:rgb(53, 53, 53);
+            color: rgb(53, 53, 53);
+
             .tag {
                 font-weight: bold;
                 color: rgb(32, 32, 32);
