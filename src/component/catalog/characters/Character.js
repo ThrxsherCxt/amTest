@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import useCharacters from "../../../hooks/useCharacters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark as faBookmarkSolid } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBookmark as faBookmarkSolid,
+  faUserPlus,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { faBookmark as faBookmarkRegular } from "@fortawesome/free-regular-svg-icons";
 
 const Character = () => {
@@ -12,10 +16,48 @@ const Character = () => {
     addToFavourites,
     removeFromFavourites,
     favourites,
+    showFavoritosTab,
   } = useCharacters();
 
   return (
     <>
+      <div className="favButtonsContainer">
+        <button
+          id="botonFavoritos"
+          className="favoritos"
+          onClick={() => showFavoritosTab()}
+        >
+          FAVORITOS&nbsp;&nbsp;&nbsp;
+          <FontAwesomeIcon icon={faBookmarkSolid} className="icons iconBold" />
+        </button>
+        <button className="agregar">
+          AGREGAR&nbsp;&nbsp;&nbsp;
+          <FontAwesomeIcon icon={faUserPlus} className="icons iconBold" />
+        </button>
+      </div>
+
+      <div className="favoritosList">
+        {favourites.length < 1 ? (
+          <div className="empty">No hay favoritos.</div>
+        ) : (
+          favourites.map((character) => (
+            <div key={character.id} className="item">
+              <div className="photo-container">
+                <div className="photo">
+                  <img alt={character.name} src={character.image} />
+                </div>
+              </div>
+              <div className="name">{character.name}</div>
+              <button
+                className="buttonDelete"
+                onClick={() => removeFromFavourites(character)}
+              >
+                <FontAwesomeIcon icon={faTrash} className="icons iconBold" />
+              </button>
+            </div>
+          ))
+        )}
+      </div>
       <div className="buttonsContainer">
         <button id="buttonStudent" onClick={() => filterCharacters(true)}>
           ESTUDIANTES
@@ -52,13 +94,13 @@ const Character = () => {
                   {favourites.includes(character) ? (
                     <FontAwesomeIcon
                       icon={faBookmarkSolid}
-                      className="iconBold"
+                      className="icons iconBold"
                       onClick={() => removeFromFavourites(character)}
                     />
                   ) : (
                     <FontAwesomeIcon
                       icon={faBookmarkRegular}
-                      className="icon"
+                      className="icons icon"
                       onClick={() => addToFavourites(character)}
                     />
                   )}

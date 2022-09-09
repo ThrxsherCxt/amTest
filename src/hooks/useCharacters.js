@@ -63,6 +63,10 @@ const useCharacters = () => {
     setFavourites(favourites.filter((favourite) => favourite !== character));
   };
 
+  const showFavoritosTab = () => {
+    document.querySelector(".favoritosList").classList.toggle("showList");
+  }
+
   return {
     charactersListData,
     getCharactersListData,
@@ -72,6 +76,7 @@ const useCharacters = () => {
     favourites,
     addToFavourites,
     removeFromFavourites,
+    showFavoritosTab
   };
 };
 
