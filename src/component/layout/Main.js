@@ -5,7 +5,7 @@ import Character from '../catalog/characters/Character';
 const Layout = () => {
 
     return (
-      <div>
+      <div className="container">
           <Character/>
       </div>
     )

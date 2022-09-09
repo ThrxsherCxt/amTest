@@ -25,8 +25,8 @@ export const fetchCharacters = () => async (dispatch) => {
     
   try {
     const response = await listCharacters();
-    dispatch(showCharacters(response));
-    return response;
+    dispatch(showCharacters(response.data));
+    return response.status === 200 ? response.data : response.status;
   } catch (error) {
     console.error(`No hay conexión con el API.\n${error}`);
     return [];
@@ -35,9 +35,9 @@ export const fetchCharacters = () => async (dispatch) => {
 
 export const addCharacter = (data) => async (dispatch) => {
   try {
-    const response = await newCharacter(data);
-    dispatch(pushCharacter(response));
-    return response;
+    const response = await newCharacter(data.data);
+    dispatch(pushCharacter(response.data));
+    return response.status === 200 ? response.data : response.status;
   } catch (error) {
     console.error(`Ocurrió un error.\n${error}`);
     return error;
