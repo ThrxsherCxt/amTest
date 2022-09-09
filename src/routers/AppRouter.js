@@ -4,9 +4,7 @@ import Main from '../component/layout/Main';
 
 const AppRouter = () => (
     <Routes>
-      <Route path="/" element={<Main />}>
-        {/* <Route index element={<Main />} /> */}
-        </Route>
+      <Route path="/" element={<Main />} />
     </Routes>
   );
   
