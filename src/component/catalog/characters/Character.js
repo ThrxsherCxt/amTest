@@ -5,13 +5,24 @@ import { faBookmark as faBookmarkSolid } from "@fortawesome/free-solid-svg-icons
 import { faBookmark as faBookmarkRegular } from "@fortawesome/free-regular-svg-icons";
 
 const Character = () => {
-  const { charactersListData, filter, filterCharacters } = useCharacters();
+  const {
+    charactersListData,
+    filter,
+    filterCharacters,
+    addToFavourites,
+    removeFromFavourites,
+    favourites,
+  } = useCharacters();
 
   return (
     <>
       <div className="buttonsContainer">
-        <button id="buttonStudent" onClick={() => filterCharacters(true)}>ESTUDIANTES</button>
-        <button id="buttonStaff" onClick={() => filterCharacters(false)}>STAFF</button>
+        <button id="buttonStudent" onClick={() => filterCharacters(true)}>
+          ESTUDIANTES
+        </button>
+        <button id="buttonStaff" onClick={() => filterCharacters(false)}>
+          STAFF
+        </button>
       </div>
 
       {charactersListData.map((character) =>
@@ -38,8 +49,19 @@ const Character = () => {
                     : "OTRO"}
                 </div>
                 <div className="favourite">
-                  <FontAwesomeIcon icon={faBookmarkRegular} className="icon" />
-                  {/* <FontAwesomeIcon icon={faBookmarkSolid} className="iconBold"/> */}
+                  {favourites.includes(character) ? (
+                    <FontAwesomeIcon
+                      icon={faBookmarkSolid}
+                      className="iconBold"
+                      onClick={() => removeFromFavourites(character)}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faBookmarkRegular}
+                      className="icon"
+                      onClick={() => addToFavourites(character)}
+                    />
+                  )}
                 </div>
               </div>
 

@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 // import { useForm } from 'react-hook-form';
-import {
-  fetchCharacters,
-  addCharacter,
-  addFavourite,
-  removeFavourite,
-} from "../redux/slices/charactersSlice";
+import { fetchCharacters, addCharacter } from "../redux/slices/charactersSlice";
 
 const useCharacters = () => {
   const dispatch = useDispatch();
   const [charactersListData, setCharactersListData] = useState([]);
   const [filter, setFilter] = useState("");
+  const [favourites, setFavourites] = useState([]);
 
   useEffect(() => {
     getCharactersListData();
@@ -57,12 +53,25 @@ const useCharacters = () => {
     }
   };
 
+  const addToFavourites = async (character) => {
+    if (favourites.length < 5) {
+      setFavourites([...favourites, character]);
+    }
+  };
+
+  const removeFromFavourites = async (character) => {
+    setFavourites(favourites.filter((favourite) => favourite !== character));
+  };
+
   return {
     charactersListData,
     getCharactersListData,
     filter,
     setFilter,
     filterCharacters,
+    favourites,
+    addToFavourites,
+    removeFromFavourites,
   };
 };
 
