@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  listCharacters,
-  newCharacter,
-} from "../../services/tempFolders/tempFoldersServices";
+    listCharacters,
+    newCharacter,
+  } from "../../services/charactersServices/charactersServices";
 
 const charactersSlice = createSlice({
   name: "characters",
@@ -11,21 +11,22 @@ const charactersSlice = createSlice({
     favourites: [],
   },
   reducers: {
-    showCharacters: (state, action) => (state.characters = action.payload),
-    pushCharacter: (state, action) => state.characters.push(action.payload),
-    addToFavourites: (state, action) => state.favourites.push(action.payload),
+    showCharacters: (state, action) => { state.characters = action.payload },
+    pushCharacter: (state, action) => { state.characters.push(action.payload) },
+    addToFavourites: (state, action) => { state.favourites.push(action.payload) },
     removeFromFavourites: (state, action) =>
-      state.favourites.splice(state.favourites.indexOf(action.payload), 1),
+      { state.favourites.splice(state.favourites.indexOf(action.payload), 1) },
   },
 });
 
 export const { showCharacters, pushCharacter, addToFavourites, removeFromFavourites } = charactersSlice.actions;
 
 export const fetchCharacters = () => async (dispatch) => {
+    
   try {
     const response = await listCharacters();
-    dispatch(showCharacters(response.data));
-    return response.status;
+    dispatch(showCharacters(response));
+    return response;
   } catch (error) {
     console.error(`No hay conexión con el API.\n${error}`);
     return [];
@@ -35,8 +36,8 @@ export const fetchCharacters = () => async (dispatch) => {
 export const addCharacter = (data) => async (dispatch) => {
   try {
     const response = await newCharacter(data);
-    dispatch(pushCharacter(response.data));
-    return response.status;
+    dispatch(pushCharacter(response));
+    return response;
   } catch (error) {
     console.error(`Ocurrió un error.\n${error}`);
     return error;
@@ -62,3 +63,5 @@ export const removeFavourite = (data) => async (dispatch) => {
     return error;
   }
 };
+
+export default charactersSlice.reducer

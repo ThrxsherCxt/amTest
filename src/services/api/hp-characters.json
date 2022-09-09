@@ -574,29 +574,6 @@
       "actor": "David Bradley",
       "alive": true,
       "image": "http://hp-api.herokuapp.com/images/filch.jpg"
-    },
-    {
-      "name": "Harry Potter2",
-      "species": "human2",
-      "gender": "male2",
-      "house": "Gryffindor2",
-      "dateOfBirth": "31-07-1980",
-      "yearOfBirth": 1980,
-      "ancestry": "half-blood",
-      "eyeColour": "green",
-      "hairColour": "black",
-      "wand": {
-        "wood": "holly",
-        "core": "phoenix feather",
-        "length": 11
-      },
-      "patronus": "stag",
-      "hogwartsStudent": true,
-      "hogwartsStaff": false,
-      "actor": "Daniel Radcliffe",
-      "alive": true,
-      "image": "http://hp-api.herokuapp.com/images/harry.jpg",
-      "id": 26
     }
   ]
 }

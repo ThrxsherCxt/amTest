@@ -1,9 +1,12 @@
-import  React from 'react';
+import React, { useEffect } from 'react';
+import Character from '../catalog/characters/Character'; 
+
 
 const Layout = () => {
+
     return (
       <div>
-          Hola Mundo
+          <Character/>
       </div>
     )
   }
