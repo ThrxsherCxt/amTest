@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Character from "../catalog/characters/Character";
 import Modal from "./Modal";
+
 const Layout = () => {
   return (
     <>

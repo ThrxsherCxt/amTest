@@ -4,15 +4,15 @@ import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 import useCharacters from "../../hooks/useCharacters";
 
 const Modal = () => {
-  const { data, sendData, handleInputChange } = useCharacters();
+  const { data, sendData, handleInputChange, selectImage, closeModal } = useCharacters();
 
   return (
-    <div className="modal-background" id="modal">
+    <div className="modal-background modalHidden" id="modal">
       <div className="modal">
         <div className="topBar">
           <div className="titleModal">Agrega un personaje</div>
           <div className="closeModal">
-            <FontAwesomeIcon icon={faCircleXmark} className="icons" />
+            <FontAwesomeIcon icon={faCircleXmark} className="icons" onClick={() => closeModal()}/>
           </div>
         </div>
 
@@ -20,7 +20,7 @@ const Modal = () => {
           <div className="inputGroup">
             <div className="inputLabel">NOMBRE</div>
             <input
-              defaultValue={data.name}
+              value={data.name}
               className="inputItem"
               type="text"
               name="name"
@@ -31,7 +31,7 @@ const Modal = () => {
           <div className="inputGroup">
             <div className="inputLabel">CUMPLEAÑOS</div>
             <input
-              defaultValue={data.birthday}
+              value={data.birthday}
               className="inputItem"
               type="date"
               name="birthday"
@@ -42,7 +42,7 @@ const Modal = () => {
           <div className="inputGroup">
             <div className="inputLabel">COLOR DE OJOS</div>
             <input
-              defaultValue={data.eyeColour}
+              value={data.eyeColour}
               className="inputItem"
               type="text"
               name="eyeColour"
@@ -53,7 +53,7 @@ const Modal = () => {
           <div className="inputGroup">
             <div className="inputLabel">COLOR DE PELO</div>
             <input
-              defaultValue={data.hairColour}
+              value={data.hairColour}
               className="inputItem"
               type="text"
               name="hairColour"
@@ -65,7 +65,7 @@ const Modal = () => {
             <div className="inputLabel">CASA</div>
             <select
               className="selectItem"
-              defaultValue={data.house}
+              value={data.house}
               name="house"
               onChange={handleInputChange}
             >
@@ -84,12 +84,12 @@ const Modal = () => {
             <div className="inputLabel">STATUS</div>
             <select
               className="selectItem"
-              defaultValue={data.status}
+              value={data.status}
               name="status"
               onChange={handleInputChange}
             >
-              <option value="true">Vivo</option>
-              <option value="false">Finado</option>
+              <option value={true}>Vivo</option>
+              <option value={false}>Finado</option>
             </select>
           </div>
 
@@ -152,9 +152,15 @@ const Modal = () => {
                 <img alt="userImage" id="img" src={data.image} />
               </div>
             </div>
-            <button onClick={() => document.querySelector("#imagen").click()} type="button" className="selectPhoto">Añadir fotografía</button>
+            <button
+              onClick={() => selectImage()}
+              type="button"
+              className="selectPhoto"
+            >
+              Añadir fotografía
+            </button>
             <input
-            className="hidden"
+              className="hidden"
               type="file"
               name="image"
               id="imagen"
@@ -164,7 +170,7 @@ const Modal = () => {
           </div>
 
           <div className="buttonContainer">
-            <button type="submit">GUARDAR</button>
+            <button className="saveButton" type="submit">GUARDAR</button>
           </div>
         </form>
       </div>

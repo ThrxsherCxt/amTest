@@ -20,6 +20,20 @@ body,
     padding: 0;
 }
 
+@media (max-width: 550px) {
+
+    .modal{
+        .body{
+            .inputGroup{
+                width:100%!important;
+                .radioGroup{
+                    justify-content: left!important;
+                }
+            }
+
+        }
+    }
+}
 
 @media (max-width: $breakpoint-mobile) {
     html {
@@ -284,7 +298,14 @@ body,
         width: 140px;
         padding: 10px 20px;
         cursor: pointer;
+        transition: 0.3s;
+
+        &:active{
+            
+            transform: scale(0.9);
+        }
     }
+
 
     .agregar {
         background-color: #6b63b5;
@@ -295,6 +316,11 @@ body,
         width: 140px;
         padding: 10px 20px;
         cursor: pointer;
+        transition: 0.3s;
+
+        &:active{
+            transform: scale(0.9);
+        }
     }
 
 }
@@ -311,6 +337,7 @@ body,
     z-index: 1;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    transition: 0.3s;
 
     .empty {
         width: calc(100% - 10px);
@@ -412,6 +439,7 @@ body,
         }
 
         &:active {
+            transform: scale(0.9);
             background-color: #6b63b5;
         }
     }
@@ -513,6 +541,11 @@ body,
             .favourite {
                 margin-top: 17px;
                 width: 25px;
+                transition: 0.3s;
+
+                &:active{
+                    transform: scale(0.7);
+                }
 
                 .icon {
                     font-size: 25px;
@@ -579,6 +612,7 @@ body,
     background-color: white;
     -ms-flex-negative: 0;
     z-index:20;
+    border-radius:15px;
 
     .topBar {
         display: flex;
@@ -632,6 +666,7 @@ body,
                 }
         
                 &:active {
+                    transform: scale(0.9);
                     background-color: #6b63b5;
                 }
             }
@@ -639,7 +674,7 @@ body,
 
         .inputGroupPhoto{
             width:100%;
-            height: 150px;
+            height: auto;
             display: flex;
             justify-content: center;
             align-items: center;   
@@ -660,12 +695,13 @@ body,
                 cursor: pointer;
                 transition: 0.3s;
                 font-weight: lighter;
-        
+
                 &:hover {
                     background-color: #9c97c9;
                 }
-        
+                
                 &:active {
+                    transform: scale(0.9);
                     background-color: #6b63b5;
                 }
             }

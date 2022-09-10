@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import useCharacters from "../../../hooks/useCharacters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,10 +17,12 @@ const Character = () => {
     removeFromFavourites,
     favourites,
     showFavoritosTab,
+    openModal
   } = useCharacters();
 
   return (
     <>
+
       <div className="favButtonsContainer">
         <button
           id="botonFavoritos"
@@ -30,7 +32,7 @@ const Character = () => {
           FAVORITOS&nbsp;&nbsp;&nbsp;
           <FontAwesomeIcon icon={faBookmarkSolid} className="icons iconBold" />
         </button>
-        <button className="agregar">
+        <button className="agregar" onClick={ () => openModal()}>
           AGREGAR&nbsp;&nbsp;&nbsp;
           <FontAwesomeIcon icon={faUserPlus} className="icons iconBold" />
         </button>
@@ -67,7 +69,7 @@ const Character = () => {
         </button>
       </div>
 
-      {charactersListData.map((character) =>
+      {charactersListData && charactersListData.map((character) => 
         filter === "" || character.hogwartsStudent === filter ? (
           <div className="card" key={character.id}>
             <div

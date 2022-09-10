@@ -2,7 +2,6 @@
 /* eslint-disable no-sequences */
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
 import { fetchCharacters, addCharacter } from "../redux/slices/charactersSlice";
 
 const useCharacters = () => {
@@ -16,10 +15,11 @@ const useCharacters = () => {
     eyeColour: "",
     hairColour: "",
     house: "",
-    status: "",
-    gender: "",
-    position: "",
-    image: "https://i.pinimg.com/736x/d9/9c/46/d99c46c56a34df5e29b2e84ae5da3830.jpg",
+    status: true,
+    gender: "Mujer",
+    position: "Estudiante",
+    image:
+      "https://i.pinimg.com/736x/d9/9c/46/d99c46c56a34df5e29b2e84ae5da3830.jpg",
   });
 
   useEffect(() => {
@@ -41,16 +41,48 @@ const useCharacters = () => {
     }
   };
 
+  const selectImage = () => {
+    document.querySelector("#imagen").click();
+  };
 
-  const sendData = (event) => {
+  const sendData =  async (event) => {
     event.preventDefault();
-    console.log(data);
+
+    document.querySelector(".saveButton").disabled = "disabled";
+    document.querySelector(".saveButton").innerHTML = "GUARDANDO...";
+
+    const payload = {
+      name: data.name !== "" ? data.name : "No especificado",
+      dateOfBirth: data.birthday,
+      eyeColour: data.eyeColour !== "" ? data.eyeColour : "No especificado",
+      hairColour: data.hairColour !== "" ? data.hairColour : "No especificado",
+      house: data.house !== "Ninguna" ? data.house : "",
+      alive: data.status === "false" ? false : true,
+      gender: data.gender,
+      hogwartsStudent: data.position === "Estudiante",
+      hogwartsStaff: data.position === "Staff",
+      image:
+        data.image !== ""
+          ? data.image
+          : "https://i.pinimg.com/736x/d9/9c/46/d99c46c56a34df5e29b2e84ae5da3830.jpg",
+    };
+
+    try {
+      const response = await dispatch(addCharacter(payload));
+      const data = [...charactersListData, response]
+      setCharactersListData(data);
+      console.log(charactersListData);
+    } catch (error) {
+      console.error(`Ocurrió un error.\n${error}`);
+    }
+    closeModal();
   };
 
   const getCharactersListData = async () => {
     try {
       const response = await dispatch(fetchCharacters());
-      setCharactersListData(response);
+      const data = response;
+      setCharactersListData(data);
     } catch (error) {
       console.error(`Ocurrió un error.\n${error}`);
       setCharactersListData([]);
@@ -88,6 +120,32 @@ const useCharacters = () => {
 
   const showFavoritosTab = () => {
     document.querySelector(".favoritosList").classList.toggle("showList");
+  };
+
+  const openModal = () => {
+    document.querySelector("#modal").classList.remove("modalHidden");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModal = () => {
+    document.querySelector("#modal").classList.add("modalHidden");
+    document.body.style.overflow = "auto";
+
+    setData({
+      name: "",
+      birthday: "",
+      eyeColour: "",
+      hairColour: "",
+      house: "",
+      status: true,
+      gender: "Mujer",
+      position: "Estudiante",
+      image:
+        "https://i.pinimg.com/736x/d9/9c/46/d99c46c56a34df5e29b2e84ae5da3830.jpg",
+    });
+
+    document.querySelector(".saveButton").disabled = false;
+    document.querySelector(".saveButton").innerHTML = "GUARDAR";
   };
 
   const compressImage = async (e, t) => {
@@ -139,6 +197,9 @@ const useCharacters = () => {
     data,
     sendData,
     handleInputChange,
+    selectImage,
+    openModal,
+    closeModal,
   };
 };
 

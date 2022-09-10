@@ -11,11 +11,11 @@ const charactersSlice = createSlice({
   },
   reducers: {
     showCharacters: (state, action) => { state.characters = action.payload },
-    pushCharacter: (state, action) => { state.characters.push(action.payload) },
+    pushCharacter: (state, action) => { state.characters = [...state.characters, action.payload] }
   },
 });
 
-export const { showCharacters, pushCharacter } = charactersSlice.actions;
+export const { showCharacters, pushCharacter, getCharacters } = charactersSlice.actions;
 
 export const fetchCharacters = () => async (dispatch) => {
   try {
@@ -29,10 +29,11 @@ export const fetchCharacters = () => async (dispatch) => {
 };
 
 export const addCharacter = (data) => async (dispatch) => {
+
   try {
-    const response = await newCharacter(data.data);
+    const response = await newCharacter(data);
     dispatch(pushCharacter(response.data));
-    return response.status === 200 ? response.data : response.status;
+    return response.status === 201 ? response.data : response.status;
   } catch (error) {
     console.error(`Ocurrió un error.\n${error}`);
     return error;
