@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-sequences */
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-// import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 import { fetchCharacters, addCharacter } from "../redux/slices/charactersSlice";
 
 const useCharacters = () => {
@@ -8,21 +10,42 @@ const useCharacters = () => {
   const [charactersListData, setCharactersListData] = useState([]);
   const [filter, setFilter] = useState("");
   const [favourites, setFavourites] = useState([]);
+  const [data, setData] = useState({
+    name: "",
+    birthday: "",
+    eyeColour: "",
+    hairColour: "",
+    house: "",
+    status: "",
+    gender: "",
+    position: "",
+    image: "https://i.pinimg.com/736x/d9/9c/46/d99c46c56a34df5e29b2e84ae5da3830.jpg",
+  });
 
   useEffect(() => {
     getCharactersListData();
   }, []);
 
-  // const {
-  //     register,
-  //     handleSubmit,
-  //     reset,
-  //     formState: { errors }
-  //   } = useForm();
+  const handleInputChange = async (event) => {
+    if (event.target.name === "image") {
+      setData({
+        ...data,
+        [event.target.name]: await compressImage(event.target, 800),
+      });
+      document.querySelector(".selectPhoto").innerHTML = "Cambiar fotografía";
+    } else {
+      setData({
+        ...data,
+        [event.target.name]: event.target.value,
+      });
+    }
+  };
 
-  //   useEffect(() => {
-  //     reset(null);
-  //   }, [null]);
+
+  const sendData = (event) => {
+    event.preventDefault();
+    console.log(data);
+  };
 
   const getCharactersListData = async () => {
     try {
@@ -65,7 +88,43 @@ const useCharacters = () => {
 
   const showFavoritosTab = () => {
     document.querySelector(".favoritosList").classList.toggle("showList");
-  }
+  };
+
+  const compressImage = async (e, t) => {
+    if ("image" === e.files[0].type.split("/")[0]) {
+      let a = new FileReader();
+      a.readAsDataURL(e.files[0]);
+      const i = await new Promise((e) => {
+        a.onload = (a) => {
+          let i = new Image();
+          (i.src = a.target.result),
+            (i.onload = () => {
+              let a = i.width,
+                h = i.height,
+                n = document.createElement("canvas"),
+                l = n.getContext("2d");
+              h < a
+                ? ((n.height = t), (n.width = n.height * (a / h)))
+                : ((n.width = t), (n.height = n.width * (h / a))),
+                l.drawImage(
+                  i,
+                  0,
+                  0,
+                  i.width,
+                  i.height,
+                  0,
+                  0,
+                  n.width,
+                  n.height
+                ),
+                e(n.toDataURL("image/jpeg"));
+            });
+        };
+      });
+      return (e.value = ""), i;
+    }
+    return (e.value = ""), null;
+  };
 
   return {
     charactersListData,
@@ -76,7 +135,10 @@ const useCharacters = () => {
     favourites,
     addToFavourites,
     removeFromFavourites,
-    showFavoritosTab
+    showFavoritosTab,
+    data,
+    sendData,
+    handleInputChange,
   };
 };
 

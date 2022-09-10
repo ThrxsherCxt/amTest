@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useCharacters from "../../../hooks/useCharacters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
